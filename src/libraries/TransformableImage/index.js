@@ -51,7 +51,8 @@ export default class TransformableImage extends PureComponent {
         };
     }
 
-    componentWillMount () {
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillMount () {
         if (!this.state.imageDimensions) {
             this.getImageSize(this.props.image);
         }
@@ -61,7 +62,8 @@ export default class TransformableImage extends PureComponent {
         this._mounted = true;
     }
 
-    componentWillReceiveProps (nextProps) {
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillReceiveProps (nextProps) {
         if (!sameImage(this.props.image, nextProps.image)) {
             // image source changed, clear last image's imageDimensions info if any
             this.setState({ imageDimensions: nextProps.image.dimensions, keyAcumulator: this.state.keyAcumulator + 1 });
@@ -90,7 +92,7 @@ export default class TransformableImage extends PureComponent {
     }
 
     onLayout (e) {
-        let {width, height} = e.nativeEvent.layout;
+        const { width, height } = e.nativeEvent.layout;
         if (this.state.viewWidth !== width || this.state.viewHeight !== height) {
             this.setState({ viewWidth: width, viewHeight: height });
         }
@@ -135,7 +137,7 @@ export default class TransformableImage extends PureComponent {
     renderError () {
         return (this.props.errorComponent && this.props.errorComponent()) || (
             <View style={{ flex: 1, backgroundColor: 'black', alignItems: 'center', justifyContent: 'center' }}>
-                 <Text style={{ color: 'white', fontSize: 15, fontStyle: 'italic' }}>This image cannot be displayed...</Text>
+                <Text style={{ color: 'white', fontSize: 15, fontStyle: 'italic' }}>This image cannot be displayed...</Text>
             </View>
         );
     }
@@ -176,18 +178,18 @@ export default class TransformableImage extends PureComponent {
 
         return (
             <ViewTransformer
-              ref={'viewTransformer'}
-              key={'viewTransformer#' + keyAccumulator} // when image source changes, we should use a different node to avoid reusing previous transform state
-              enableTransform={enableTransform && imageLoaded} // disable transform until image is loaded
-              enableScale={enableScale}
-              enableTranslate={enableTranslate}
-              enableResistance={true}
-              onTransformGestureReleased={onTransformGestureReleased}
-              onViewTransformed={onViewTransformed}
-              maxScale={maxScale}
-              contentAspectRatio={contentAspectRatio}
-              onLayout={this.onLayout}
-              style={style}>
+                ref={'viewTransformer'}
+                key={'viewTransformer#' + keyAccumulator} // when image source changes, we should use a different node to avoid reusing previous transform state
+                enableTransform={enableTransform && imageLoaded} // disable transform until image is loaded
+                enableScale={enableScale}
+                enableTranslate={enableTranslate}
+                enableResistance={true}
+                onTransformGestureReleased={onTransformGestureReleased}
+                onViewTransformed={onViewTransformed}
+                maxScale={maxScale}
+                contentAspectRatio={contentAspectRatio}
+                onLayout={this.onLayout}
+                style={style}>
                 { error ? this.renderError() : content }
             </ViewTransformer>
         );

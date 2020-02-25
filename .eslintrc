@@ -1,36 +1,140 @@
 {
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "plugins": ["react"],
-        "extends": ["eslint:recommended", "plugin:react/recommended"]
-    },
-    "extends": [
-        "standard",
-        "standard-react"
-    ],
-    "env": {
-        "browser": true
-    },
-    "globals": {
-        "__DEV__": false
-    },
-    "rules": {
-        "indent": [2, 4],
-        "generator-star-spacing": 0,
-        "react/jsx-indent": [0, 4],
-        "jsx-indent-props": [0, 4],
-        "react/jsx-curly-spacing": [0, "never"],
-        "react/jsx-boolean-value": [0, "never"],
-        "semi": [2, "always"],
-        "operator-linebreak": [2, "after"],
-        "no-warning-comments": [1, {
-            "terms": ["todo", "fixme", "xxx"],
-            "location": "start"
-        }]
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "plugins": ["@typescript-eslint", "react", "react-native"],
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react-native/all",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/interface-name-prefix": [
+      "error",
+      { "prefixWithI": "always" }
+    ],
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      { "functions": false, "classes": false, "variables": false }
+    ],
+    "@typescript-eslint/no-inferrable-types": "off",
+
+    "react/destructuring-assignment": "off",
+    "react/static-property-placement": "off",
+    "react/jsx-filename-extension": "off", // ["warn", { extensions: [".js", ".jsx"] }],
+    "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
+    "react/jsx-curly-brace-presence": "off",
+    "react/jsx-curly-newline": "off",
+    "react/jsx-indent-props": ["warn", "first"],
+    "react/jsx-boolean-value": "off",
+    "react/jsx-wrap-multilines": "off",
+
+    "react/no-did-update-set-state": ["warn"],
+    "react/no-access-state-in-setstate": ["warn"],
+
+    "prefer-destructuring": [
+      "error",
+      { "AssignmentExpression": { "object": true } }
+    ],
+    "react/sort-comp": [
+      "warn",
+      {
+        "order": [
+          "defaultProps",
+          "static-methods",
+          "static-variables",
+          "instance-variables",
+          "constructor",
+          "state",
+          "lifecycle",
+          "rendering",
+          "instance-methods",
+          "everything-else"
+        ],
+        "groups": {
+          "lifecycle": [
+            "getDerivedStateFromProps",
+            "componentWillMount",
+            "UNSAFE_componentWillMount",
+            "componentDidMount",
+            "UNSAFE_componentWillReceiveProps",
+            "shouldComponentUpdate",
+            "componentWillUpdate",
+            "UNSAFE_componentWillUpdate",
+            "getSnapshotBeforeUpdate",
+            "componentDidUpdate",
+            "componentDidCatch",
+            "componentWillUnmount"
+          ],
+          "rendering": ["render", "/^_render.+$/"]
+        }
+      }
+    ],
+
+    "react-native/no-inline-styles": "off",
+    "react-native/sort-styles": "off",
+
+    "dot-notation": "off",
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off",
+    "prettier/prettier": ["error"],
+    "import/extensions": ["off", "never"],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": true,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "quotes": ["error", "double"],
+    "object-curly-spacing": ["error", "always"],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "no-restricted-syntax": "off",
+    "no-param-reassign": "off",
+    "lines-between-class-members": "off",
+    "lines-around-comment": [
+      "error",
+      {
+        "beforeBlockComment": true,
+        "afterBlockComment": false,
+        "beforeLineComment": false,
+        "afterLineComment": false,
+        "allowBlockStart": true,
+        "allowBlockEnd": true,
+        "allowObjectStart": true,
+        "allowObjectEnd": true,
+        "allowArrayStart": true,
+        "allowArrayEnd": true,
+        "ignorePattern": "log",
+        "applyDefaultIgnorePatterns": false
+      }
+    ],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-shadow": ["warn", { "builtinGlobals": false, "hoist": "all" }],
+    "import/prefer-default-export": "off"
+  }
 }

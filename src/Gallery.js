@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent-props */
 import React, { PureComponent } from 'react';
 import { View, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
@@ -55,8 +56,9 @@ export default class Gallery extends PureComponent {
         this.activeImageResponder = this.activeImageResponder.bind(this);
     }
 
-    componentWillMount () {
-        let onResponderReleaseOrTerminate = (evt, gestureState) => {
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillMount () {
+        const onResponderReleaseOrTerminate = (evt, gestureState) => {
             if (this.activeResponder) {
                 if (this.activeResponder === this.viewPagerResponder &&
                     !this.shouldScrollViewPager(evt, gestureState) &&
@@ -197,7 +199,7 @@ export default class Gallery extends PureComponent {
 
     getImageTransformer (page) {
         if (page >= 0 && page < this.pageCount) {
-            let ref = this.imageRefs.get(page);
+            const ref = this.imageRefs.get(page);
             if (ref) {
                 return ref.getViewTransformerInstance();
             }
@@ -209,7 +211,7 @@ export default class Gallery extends PureComponent {
     }
 
     getViewPagerInstance () {
-        return this.refs['galleryViewPager'];
+        return this.refs.galleryViewPager;
     }
 
     onPageSelected (page) {
@@ -228,18 +230,18 @@ export default class Gallery extends PureComponent {
         const { onViewTransformed, onTransformGestureReleased, errorComponent, imageComponent } = this.props;
         return (
             <TransformableImage
-              onViewTransformed={((transform) => {
-                  onViewTransformed && onViewTransformed(transform, pageId);
-              })}
-              onTransformGestureReleased={((transform) => {
-                  // need the 'return' here because the return value is checked in ViewTransformer
-                  return onTransformGestureReleased && onTransformGestureReleased(transform, pageId);
-              })}
-              ref={((ref) => { this.imageRefs.set(pageId, ref); })}
-              key={'innerImage#' + pageId}
-              errorComponent={errorComponent}
-              imageComponent={imageComponent}
-              image={pageData}
+                onViewTransformed={((transform) => {
+                    onViewTransformed && onViewTransformed(transform, pageId);
+                })}
+                onTransformGestureReleased={((transform) => {
+                    // need the 'return' here because the return value is checked in ViewTransformer
+                    return onTransformGestureReleased && onTransformGestureReleased(transform, pageId);
+                })}
+                ref={((ref) => { this.imageRefs.set(pageId, ref); })}
+                key={'innerImage#' + pageId}
+                errorComponent={errorComponent}
+                imageComponent={imageComponent}
+                image={pageData}
             />
         );
     }
@@ -247,12 +249,12 @@ export default class Gallery extends PureComponent {
     resetHistoryImageTransform () {
         let transformer = this.getImageTransformer(this.currentPage + 1);
         if (transformer) {
-            transformer.forceUpdateTransform({scale: 1, translateX: 0, translateY: 0});
+            transformer.forceUpdateTransform({ scale: 1, translateX: 0, translateY: 0 });
         }
 
         transformer = this.getImageTransformer(this.currentPage - 1);
         if (transformer) {
-            transformer.forceUpdateTransform({scale: 1, translateX: 0, translateY: 0});
+            transformer.forceUpdateTransform({ scale: 1, translateX: 0, translateY: 0 });
         }
     }
 
@@ -269,22 +271,24 @@ export default class Gallery extends PureComponent {
             gestureResponder = {};
         }
 
-        const flatListProps = {...DEFAULT_FLAT_LIST_PROPS, ...this.props.flatListProps};
+        const flatListProps = { ...DEFAULT_FLAT_LIST_PROPS, ...this.props.flatListProps };
 
         return (
             <ViewPager
-              {...this.props}
-              flatListProps={flatListProps}
-              ref={'galleryViewPager'}
-              scrollViewStyle={this.props.scrollViewStyle}
-              scrollEnabled={false}
-              renderPage={this.renderPage}
-              pageDataArray={images}
-              {...gestureResponder}
-              onPageSelected={this.onPageSelected}
-              onPageScrollStateChanged={this.onPageScrollStateChanged}
-              onPageScroll={this.props.onPageScroll}
-              removeClippedSubviews={this.props.removeClippedSubviews}
+                {...this.props}
+                flatListProps={flatListProps}
+                ref='galleryViewPager'
+                scrollViewStyle={this.props.scrollViewStyle}
+                scrollEnabled={false}
+                renderPage={this.renderPage}
+                pageDataArray={images}
+                {...gestureResponder}
+                // eslint-disable-next-line react/jsx-handler-names
+                onPageSelected={this.onPageSelected}
+                // eslint-disable-next-line react/jsx-handler-names
+                onPageScrollStateChanged={this.onPageScrollStateChanged}
+                onPageScroll={this.props.onPageScroll}
+                removeClippedSubviews={this.props.removeClippedSubviews}
             />
         );
     }
