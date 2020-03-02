@@ -177,9 +177,17 @@ export default class ViewTransformer extends React.Component {
     }
 
     onResponderGrant (evt, gestureState) {
-        this.props.onTransformStart && this.props.onTransformStart();
-        this.setState({ responderGranted: true });
-        this.measureLayout();
+        if (this !== undefined && this !== null) {
+            if (this.props !== undefined && this.props !== null) {
+                try {
+                    this.props.onTransformStart && this.props.onTransformStart();
+                } catch (error) {
+                    // Nothing
+                }
+            }
+            this.setState({ responderGranted: true });
+            this.measureLayout();
+        }
     }
 
     onResponderMove (evt, gestureState) {
