@@ -185,8 +185,18 @@ export default class ViewTransformer extends React.Component {
                     // Nothing
                 }
             }
-            this.setState({ responderGranted: true });
-            this.measureLayout();
+            if (this.state !== undefined && this.state !== null) {
+                try {
+                    this.setState({ responderGranted: true });
+                } catch (error) {
+                    // Nothing
+                }
+            }
+            try {
+                this.measureLayout();
+            } catch (error) {
+                // Nothing
+            }
         }
     }
 
