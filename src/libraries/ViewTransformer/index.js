@@ -122,8 +122,12 @@ export default class ViewTransformer extends React.Component {
     }
 
     componentWillUnmount () {
-        this.cancelAnimation();
-    }
+        try {
+            this.cancelAnimation();
+        } catch (error) {
+            // Nothing
+        }
+    }        
 
     render () {
         let gestureResponder = this.gestureResponder;
@@ -201,9 +205,14 @@ export default class ViewTransformer extends React.Component {
     }
 
     onResponderMove (evt, gestureState) {
-        this.cancelAnimation();
+        try {
+            this.cancelAnimation();
+        } catch (error) {
+            // Nothing
+        }
 
-        let dx = gestureState.moveX - gestureState.previousMoveX;
+        try {
+            let dx = gestureState.moveX - gestureState.previousMoveX;
         let dy = gestureState.moveY - gestureState.previousMoveY;
         if (this.props.enableResistance) {
             const d = this.applyResistance(dx, dy);
@@ -240,6 +249,10 @@ export default class ViewTransformer extends React.Component {
         }
 
         this.updateTransform(transform);
+        } catch (error) {
+            // Nothing
+        }
+        
         return true;
     }
 
